@@ -1,10 +1,17 @@
-import tkinter as tk
+import sys
+
+if sys.version_info[0] == 2:
+	import Tkinter as tk
+	import tkMessageBox as mbox
+elif sys.version_info[0] == 3:
+	import tkinter as tk
+	import tkinter.messagebox as mbox
+
 from random import randint, random
 from snake import Snake
 from apple import Apple
 from treat import Treat
 import math
-import tkinter.messagebox as mbox
 
 widthpixels = 300
 heightpixels = 300
@@ -92,7 +99,7 @@ class Game():
 			self.treat.draw()
 			self.treat_timer -= gamespeed
 			self.canvas.itemconfig("treattime",\
-								   text=str(math.ceil(self.treat_timer/1000)))
+								   text=str(int(math.ceil(self.treat_timer/1000))))
 
 		if self.snake.snek[0] == self.apple.pos:
 			self.snake.eat()
