@@ -50,7 +50,7 @@ class Game():
 						   blockpixels,\
 						   self.snake.snek)
 		self.canvas.create_text(32, 10, text="Best score: ", fill="white")
-		self.canvas.create_text(70, 10, text=str(self.best_score), fill="white", tag="best_score")
+		self.best_score_text = self.canvas.create_text(70, 10, text=str(self.best_score), fill="white", tag="best_score")
 		
 		self.canvas.create_text(20, 25, text="Score: ", fill="white")
 		self.canvas.create_text(45, 25, text=str(self.score), fill="white", tag="score")
@@ -61,12 +61,35 @@ class Game():
 		self.master.bind("<Right>", self.snake_right)
 		self.master.bind("<Key-q>", lambda event: self.master.quit())
 
-		self.master.focus_force()
+		self.start()
 
+
+	def start(self):
+		self.start_reset = tk.Toplevel()
+		self.start_reset.title("Welcome")
+		message = tk.Label(self.start_reset, text="Let's do this!")
+		start_button = tk.Button(self.start_reset, text="Start", command=self.prepare)
+		reset_button = tk.Button(self.start_reset, text="Reset", command=self.reset)
+		message.pack()
+		start_button.pack()
+		reset_button.pack()
+
+
+	def reset(self):
+		with open("best.txt", 'w') as f:
+			f.write('0')
+
+		self.canvas.itemconfig(self.best_score_text, text="0")
+
+
+	def prepare(self):
+		self.start_reset.destroy()
+		self.master.focus_force()
 		self.play()
 
 
 	def play(self):
+		self.master.focus_force()
 
 		sx = self.snake.snek[0][0]
 		sy = self.snake.snek[0][1]
@@ -99,7 +122,7 @@ class Game():
 			self.treat.draw()
 			self.treat_timer -= gamespeed
 			self.canvas.itemconfig("treattime",\
-								   text=str(int(math.ceil(self.treat_timer/1000))))
+								   text=str(int(math.ceil(self.treat_timer/1000.))))
 
 		if self.snake.snek[0] == self.apple.pos:
 			self.snake.eat()

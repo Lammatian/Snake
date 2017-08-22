@@ -5,6 +5,9 @@ __pycache__/
 *.py[cod]
 *$py.class
 
+# score
+src/best.txt
+
 # C extensions
 *.so
 
