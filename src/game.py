@@ -28,6 +28,7 @@ class Game():
 		# each square will be 10 by 10 pixels 
 		# window 300 by 300 pixels
 		self.master = master
+		self.master.title("Snek!")
 		self.master.geometry("{}x{}".format(widthpixels, heightpixels))
 
 		self.canvas = tk.Canvas(self.master, width=widthpixels, height=heightpixels, bg="black")
@@ -67,6 +68,7 @@ class Game():
 	def start(self):
 		self.start_reset = tk.Toplevel()
 		self.start_reset.title("Welcome")
+		self.start_reset.geometry("300x150")
 		message = tk.Label(self.start_reset, text="Let's do this!")
 		start_button = tk.Button(self.start_reset, text="Start", command=self.prepare)
 		reset_button = tk.Button(self.start_reset, text="Reset", command=self.reset)
@@ -89,8 +91,6 @@ class Game():
 
 
 	def play(self):
-		self.master.focus_force()
-
 		sx = self.snake.snek[0][0]
 		sy = self.snake.snek[0][1]
 
